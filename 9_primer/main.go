@@ -7,7 +7,7 @@ func main() {
 	c2 := incrementor("Bar ")
 	c3 := puller(c1)
 	c4 := puller(c2)
-	fmt.Println("Final counter: ", <-c3 + <-c4)
+	fmt.Println("Final counter: ", <-c3+<-c4)
 }
 
 func incrementor(s string) chan int {

@@ -17,7 +17,7 @@ func main() {
 	}
 
 	go func() {
-		for i:=0; i < n; i++ {
+		for i := 0; i < n; i++ {
 			<-done
 		}
 		close(c)

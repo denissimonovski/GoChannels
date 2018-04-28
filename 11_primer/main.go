@@ -3,33 +3,33 @@ package main
 import "fmt"
 
 func main() {
-	c := incrementor()
-	cSum := puller(c)
-	for n := range cSum {
+	for n := range sq(sq(gen(2, 3))) {
 		fmt.Println(n)
 	}
 }
 
-func incrementor() <-chan int {
+func gen(nums ...int) chan int {
 	out := make(chan int)
+
 	go func() {
-		for i := 0; i < 10; i++ {
+		for _, i := range nums {
 			out <- i
 		}
 		close(out)
 	}()
+
 	return out
 }
 
-func puller(c <-chan int) <-chan int {
+func sq(c chan int) chan int {
 	out := make(chan int)
-	var sum int
+
 	go func() {
 		for n := range c {
-			sum += n
+			out <- n * n
 		}
-		out <- sum
 		close(out)
 	}()
+
 	return out
 }
